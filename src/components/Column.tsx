@@ -1,9 +1,9 @@
-import Col from 'react-bootstrap/Col'
-import { StrictModeDroppable } from '../utils/StrictModeDroppable'
-import { ColumnData } from '../utils/types'
-import { Task } from './Task'
+import { Droppable } from '@hello-pangea/dnd';
+import Col from 'react-bootstrap/Col';
+import { ColumnData } from '../utils/types';
+import { Task } from './Task';
 
-export const Column = (columnData: ColumnData) => {
+export const Column = ({ id, tasks, name }: ColumnData, index:number) => {
     return (
         <Col 
             className='
@@ -11,7 +11,6 @@ export const Column = (columnData: ColumnData) => {
                 flex-column 
                 align-items-center 
                 w-auto 
-                h-90 
                 m-3 
                 p-4 
                 border 
@@ -19,22 +18,24 @@ export const Column = (columnData: ColumnData) => {
                 bg-light
             '
             style={{ minWidth: '18rem' }}
+            key={index}
         >
-            <h2 style={{ textAlign: 'center' }}>{columnData.name}</h2>
-            <StrictModeDroppable droppableId={columnData.id}>
+            <h2 style={{ textAlign: 'center' }}>{name}</h2>
+            <Droppable droppableId={id}>
                 {(provided) => {
                     return (
                         <div
                             {...provided.droppableProps}
                             ref={provided.innerRef}
                         >
-                            {columnData.tasks.map((task, index) => {
-                                return <Task key={index} id={task.id} value={task.value}></Task>
-                            })}
+                            {tasks.map((task, index) => 
+                                <Task key={index} index={index} task={task}></Task>
+                            )}
+                            {provided.placeholder}
                         </div>
                     )
                 }}
-            </StrictModeDroppable>
+            </Droppable>
         </Col>
     )
 }

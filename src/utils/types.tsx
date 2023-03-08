@@ -1,12 +1,17 @@
 interface TaskData {
     id: string;
     value: string;
-  }
+}
+
+interface TaskComponent {
+    task: TaskData;
+    index: number;
+}
   
 interface ColumnData {
-    id: string;
-    name: string;
-    tasks: TaskData[];
+    id: string,
+    name: string,
+    tasks: TaskData[],
 }
   
 interface BoardData {
@@ -15,6 +20,7 @@ interface BoardData {
 
 export type {
     TaskData,
+    TaskComponent,
     ColumnData,
     BoardData
 }

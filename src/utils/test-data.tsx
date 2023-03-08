@@ -27,15 +27,15 @@ export const data:BoardData = {
           tasks: [
             {
               id: uuid(),
-              value: 'Write new components for the system.'
+              value: 'Mopper doodle.'
             },
             {
               id: uuid(),
-              value: 'Floop the pig.'
+              value: 'Lorem Ipsum Et Cetera.'
             },
             {
               id: uuid(),
-              value: 'Reticulate those splines.'
+              value: 'Ollie ollie oxen free.'
             },
           ]
         },
@@ -45,17 +45,17 @@ export const data:BoardData = {
           tasks: [
             {
               id: uuid(),
-              value: 'Write new components for the system.'
+              value: 'Giddy up, cowboy.'
             },
             {
               id: uuid(),
-              value: 'Floop the pig.'
+              value: 'Razzamafoo to you, good sir.'
             },
             {
               id: uuid(),
-              value: 'Reticulate those splines.'
+              value: 'Good heavens, my goodness, and so forth.'
             },
           ]
         },
-      ]
+    ]
 }
