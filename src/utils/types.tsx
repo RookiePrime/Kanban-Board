@@ -6,6 +6,7 @@ interface TaskData {
 interface TaskComponent {
     task: TaskData;
     index: number;
+    draggableId: string;
 }
   
 interface ColumnData {

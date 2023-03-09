@@ -5,7 +5,7 @@ import { Column } from "./Column";
 import { BoardData, ColumnData } from "../utils/types";
 
 export const Board = (boardData:BoardData) => {
-    const [columns, setColumns ] = useState<ColumnData[]>(boardData.columns);
+    const [ columns, setColumns ] = useState<ColumnData[]>(boardData.columns);
 
     return (
         <div className='d-flex justify-content-center w-50 h-100'>

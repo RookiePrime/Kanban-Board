@@ -10,26 +10,33 @@ export const Column = ({ id, tasks, name }: ColumnData, index:number) => {
                 d-flex 
                 flex-column 
                 align-items-center 
+                justify-content-center
                 w-auto 
-                m-3 
-                p-4 
+                m-3
+                pt-4
                 border 
                 border-dark-subtle 
-                bg-light
             '
             style={{ minWidth: '18rem' }}
             key={index}
         >
             <h2 style={{ textAlign: 'center' }}>{name}</h2>
-            <Droppable droppableId={id}>
-                {(provided) => {
+            <Droppable droppableId={id} key={id}>
+                {(provided, snapshot) => {
                     return (
                         <div
                             {...provided.droppableProps}
                             ref={provided.innerRef}
+                            className={`
+                                w-100 h-100
+                                d-flex
+                                flex-column
+                                align-items-center
+                                ${snapshot.isDraggingOver ? 'bg-light' : 'bg-white'}
+                            `}
                         >
                             {tasks.map((task, index) => 
-                                <Task key={index} index={index} task={task}></Task>
+                                <Task key={task.id} draggableId={task.id} index={index} task={task}></Task>
                             )}
                             {provided.placeholder}
                         </div>

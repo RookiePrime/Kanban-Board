@@ -17,10 +17,7 @@ export const Task = ({task, index}:TaskComponent) => {
                             width: '15rem',
                             ...provided.draggableProps.style
                         }} 
-                        // className={`${snapshot.isDragging 
-                        //     ? 'bg-light-subtle' 
-                        //     : 'bg-light w-100'}
-                        //     `}
+                        className={`${snapshot.isDragging ? 'bg-light' : 'bg-white'}`}
                     >
                         <Card.Body>
                             <Card.Text>
