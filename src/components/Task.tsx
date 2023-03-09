@@ -1,6 +1,6 @@
 import { Draggable } from '@hello-pangea/dnd';
 import Card from 'react-bootstrap/Card';
-import { TaskComponent, TaskData } from '../utils/types';
+import { TaskComponent, TaskData } from '../utils';
 
 export const Task = ({task, index}:TaskComponent) => {
     const { id, value }:TaskData = task;

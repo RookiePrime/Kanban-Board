@@ -1,4 +1,4 @@
-import { BoardData } from "./types"
+import { BoardData } from "./"
 import { v4 as uuid } from 'uuid'
 
 export const data:BoardData = {

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { DragDropContext } from '@hello-pangea/dnd';
 import { onDragEnd } from '../utils';
-import { Column } from "./Column";
-import { BoardData, ColumnData } from "../utils/types";
+import { Column } from "./";
+import { BoardData, ColumnData } from "../utils";
 
 export const Board = (boardData:BoardData) => {
     const [ columns, setColumns ] = useState<ColumnData[]>(boardData.columns);

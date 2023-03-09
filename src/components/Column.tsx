@@ -1,7 +1,7 @@
 import { Droppable } from '@hello-pangea/dnd';
 import Col from 'react-bootstrap/Col';
-import { ColumnData } from '../utils/types';
-import { Task } from './Task';
+import { ColumnData } from '../utils';
+import { Task } from './';
 
 export const Column = ({ id, tasks, name }: ColumnData, index:number) => {
     return (
