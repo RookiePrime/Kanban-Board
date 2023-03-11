@@ -19,9 +19,17 @@ interface BoardData {
     columns: ColumnData[]
 }
 
+interface TaskModalProps {
+    show: boolean,
+    handleClose: () => void,
+    columns: ColumnData[],
+    setColumns: React.Dispatch<React.SetStateAction<ColumnData[]>>
+}
+
 export type {
     TaskData,
     TaskComponent,
     ColumnData,
-    BoardData
+    BoardData,
+    TaskModalProps
 }
