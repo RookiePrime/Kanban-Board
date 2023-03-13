@@ -1,7 +1,14 @@
 import { v4 as uuid } from 'uuid';
 import { ColumnData, TaskData } from "./types";
 
-export const saveTask = (columns:ColumnData[], taskText:string, handleClose:() => void, setColumns:React.Dispatch<React.SetStateAction<ColumnData[]>>) => {
+export const saveNewTask = (
+    columns:ColumnData[], 
+    taskText:string, 
+    handleClose:() => void, 
+    setColumns:React.Dispatch<React.SetStateAction<ColumnData[]>>,
+    setTaskText:React.Dispatch<React.SetStateAction<string>>
+ ) => {
+    
     const copyColumns = structuredClone(columns);
     let indexOfRequested:number = -1;
     
@@ -21,5 +28,6 @@ export const saveTask = (columns:ColumnData[], taskText:string, handleClose:() =
         index === indexOfRequested ? requestedColumn : column);
 
     setColumns(newColumns);
+    setTaskText('');
     handleClose();
 }

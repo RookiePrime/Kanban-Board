@@ -1,20 +1,32 @@
 import { useState } from 'react';
-import { Button, Modal } from "react-bootstrap";
-import { saveTask, TaskModalProps } from "../utils";
+import { Button, Form, Modal } from "react-bootstrap";
+import { saveNewTask, TaskModalProps } from "../utils";
 
 export const TaskModal = ({ show, handleClose, columns, setColumns }:TaskModalProps) => {
-    const [taskText, setTaskText] = useState('Lorem ipsum dolor, sit amet consectetur adipisicing elit.');
+    const [taskText, setTaskText] = useState('');
 
     return (
         <Modal show={show} onHide={handleClose}>
-            <Modal.Dialog>
+            <Modal.Dialog className={'w-100, m-5'}>
                 <Modal.Body>
-                    {taskText}
+                    <Form>
+                        <Form.Control 
+                            as='textarea'
+                            className='overflow-hidden, border-0'
+                            style={{resize: 'none'}}
+                            placeholder='Enter your task here!'
+                            value={taskText}
+                            onChange={e => setTaskText(e.target.value)}
+                            onKeyDown={e => {
+                                if (e.key === 'Enter') return saveNewTask(columns, taskText, handleClose, setColumns, setTaskText)
+                            }}     
+                        />
+                    </Form>
                 </Modal.Body>
 
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Close</Button>
-                    <Button variant="primary" onClick={() => saveTask(columns, taskText, handleClose, setColumns)}>Save changes</Button>
+                    <Button variant="primary" onClick={() => saveNewTask(columns, taskText, handleClose, setColumns, setTaskText)}>Save changes</Button>
                 </Modal.Footer>
             </Modal.Dialog>
         </Modal>

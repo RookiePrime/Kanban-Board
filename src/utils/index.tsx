@@ -1,23 +1,27 @@
 import { onDragEnd } from "./on-drag-end";
-import { saveTask } from "./save-task";
+import { saveNewTask } from "./save-new-task";
+import { saveTaskText } from "./save-task-text";
 import { data } from "./test-data";
 import { 
     TaskData, 
     TaskComponent, 
     ColumnData, 
+    ColumnComponent,
     BoardData, 
     TaskModalProps,
 } from "./types";
 
 export {
     onDragEnd,
-    saveTask,
+    saveNewTask,
+    saveTaskText,
     data
 }
 export type {
     TaskData,
     TaskComponent,
     ColumnData,
+    ColumnComponent,
     BoardData,
     TaskModalProps
 }

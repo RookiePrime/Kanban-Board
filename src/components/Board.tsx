@@ -16,8 +16,14 @@ export const Board = (boardData:BoardData) => {
     return (
         <div className='d-flex justify-content-center w-50 h-100'>
             <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
-                {columns.map(({ id, tasks, name}, index) =>
-                    <Column key={index} id={id} tasks={tasks} name={name}></Column>
+                {columns.map((column, index) =>
+                    <Column 
+                        key={index} 
+                        column={column} 
+                        columns={columns} 
+                        index={index}
+                        setColumns={setColumns}
+                    ></Column>
                 )}
             </DragDropContext>
             <Button className='align-self-end' onClick={handleShow}></Button>

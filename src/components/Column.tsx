@@ -1,9 +1,11 @@
 import { Droppable } from '@hello-pangea/dnd';
 import Col from 'react-bootstrap/Col';
-import { ColumnData } from '../utils';
+import { ColumnComponent } from '../utils';
 import { Task } from './';
 
-export const Column = ({ id, tasks, name }: ColumnData, index:number) => {
+export const Column = ({ column, index, columns, setColumns }: ColumnComponent) => {
+    const { name, id, tasks } = column;
+
     return (
         <Col 
             className='
@@ -36,7 +38,7 @@ export const Column = ({ id, tasks, name }: ColumnData, index:number) => {
                             `}
                         >
                             {tasks.map((task, index) => 
-                                <Task key={task.id} draggableId={task.id} index={index} task={task}></Task>
+                                <Task key={task.id} draggableId={task.id} index={index} task={task} columns={columns} setColumns={setColumns}></Task>
                             )}
                             {provided.placeholder}
                         </div>
