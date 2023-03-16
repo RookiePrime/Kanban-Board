@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Row } from 'react-bootstrap';
+import { Container, Button, Row } from 'react-bootstrap';
 import { DragDropContext } from '@hello-pangea/dnd';
 import { onDragEnd } from '../utils';
 import { Column } from "./";
@@ -14,24 +14,28 @@ export const Board = (boardData:BoardData) => {
     const handleShow:() => void = () => setShow(true);
 
     return (
-        <div className='d-flex flex-column align-items-center h-100'>
-            <div className='d-flex h-100'>
+        <Container className='d-flex flex-column align-items-center justify-content-between'>
+            <Row className='d-flex'>
                 <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
-                    <Row>
-                        {columns.map((column, index) =>
-                            <Column 
-                                key={index} 
-                                column={column} 
-                                columns={columns} 
-                                index={index}
-                                setColumns={setColumns}
-                            ></Column>
-                        )}
-                    </Row>
+                    <Container>
+                        <Row className='d-flex justify-content-center'>
+                            {columns.map((column, index) =>
+                                <Column 
+                                    key={index} 
+                                    column={column} 
+                                    columns={columns} 
+                                    index={index}
+                                    setColumns={setColumns}
+                                ></Column>
+                            )}
+                        </Row>
+                    </Container>
                 </DragDropContext>
                 <TaskModal show={show} handleClose={handleClose} columns={columns} setColumns={setColumns}></TaskModal>
-            </div>
-            <Button className='w-50' onClick={handleShow}>Create New Task</Button>
-        </div>
+            </Row>
+            <Row className='d-flex justify-content-center w-100'>
+                <Button onClick={handleShow}>Create New Task</Button>
+            </Row>
+        </Container>
     )
 }

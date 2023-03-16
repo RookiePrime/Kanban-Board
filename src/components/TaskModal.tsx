@@ -14,6 +14,7 @@ export const TaskModal = ({ show, handleClose, columns, setColumns }:TaskModalPr
                             as='textarea'
                             className='overflow-hidden, border-0'
                             style={{resize: 'none'}}
+                            autoFocus
                             placeholder='Enter your task here!'
                             value={taskText}
                             onChange={e => setTaskText(e.target.value)}
