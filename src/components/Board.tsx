@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Row } from 'react-bootstrap';
 import { DragDropContext } from '@hello-pangea/dnd';
 import { onDragEnd } from '../utils';
 import { Column } from "./";
@@ -14,20 +14,24 @@ export const Board = (boardData:BoardData) => {
     const handleShow:() => void = () => setShow(true);
 
     return (
-        <div className='d-flex justify-content-center w-50 h-100'>
-            <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
-                {columns.map((column, index) =>
-                    <Column 
-                        key={index} 
-                        column={column} 
-                        columns={columns} 
-                        index={index}
-                        setColumns={setColumns}
-                    ></Column>
-                )}
-            </DragDropContext>
-            <Button className='align-self-end' onClick={handleShow}></Button>
-            <TaskModal show={show} handleClose={handleClose} columns={columns} setColumns={setColumns}></TaskModal>
+        <div className='d-flex flex-column align-items-center h-100'>
+            <div className='d-flex h-100'>
+                <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
+                    <Row>
+                        {columns.map((column, index) =>
+                            <Column 
+                                key={index} 
+                                column={column} 
+                                columns={columns} 
+                                index={index}
+                                setColumns={setColumns}
+                            ></Column>
+                        )}
+                    </Row>
+                </DragDropContext>
+                <TaskModal show={show} handleClose={handleClose} columns={columns} setColumns={setColumns}></TaskModal>
+            </div>
+            <Button className='w-50' onClick={handleShow}>Create New Task</Button>
         </div>
     )
 }

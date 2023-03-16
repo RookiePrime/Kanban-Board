@@ -24,11 +24,8 @@ export const Task = ({ task, index, columns, setColumns }:TaskComponent) => {
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        style={{
-                            width: '15rem',
-                            ...provided.draggableProps.style
-                        }} 
-                        className={`${snapshot.isDragging ? 'bg-light' : 'bg-white'}`}
+                        style={{...provided.draggableProps.style}} 
+                        className={`${snapshot.isDragging ? 'bg-light' : 'bg-white w-100'}`}
                     >
                         {
                             editingText 

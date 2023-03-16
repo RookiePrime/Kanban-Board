@@ -1,5 +1,5 @@
 import { Droppable } from '@hello-pangea/dnd';
-import Col from 'react-bootstrap/Col';
+import { Col } from 'react-bootstrap';
 import { ColumnComponent } from '../utils';
 import { Task } from './';
 
@@ -17,9 +17,8 @@ export const Column = ({ column, index, columns, setColumns }: ColumnComponent) 
                 m-3
                 pt-4
                 border 
-                border-dark-subtle 
+                border-dark-subtle
             '
-            style={{ minWidth: '18rem' }}
             key={index}
         >
             <h2 style={{ textAlign: 'center' }}>{name}</h2>

@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { ColumnData, TaskData } from "./types";
+import { ColumnData, TaskData, setLocalStorage } from "./";
 
 export const saveNewTask = (
     columns:ColumnData[], 
@@ -24,10 +24,11 @@ export const saveNewTask = (
 
     requestedColumn.tasks.push(newTask)
 
-    const newColumns = copyColumns.map((column:ColumnData, index:number) => 
+    const newColumns:ColumnData[] = copyColumns.map((column:ColumnData, index:number) => 
         index === indexOfRequested ? requestedColumn : column);
 
     setColumns(newColumns);
     setTaskText('');
+    setLocalStorage(newColumns);
     handleClose();
 }
