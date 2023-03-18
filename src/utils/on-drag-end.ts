@@ -1,5 +1,5 @@
 import { DropResult } from "@hello-pangea/dnd";
-import { ColumnData, setLocalStorage, TaskData } from "./";
+import { ColumnData, setLocalStorage, TaskData } from ".";
 
 export const onDragEnd = (result:DropResult, columns:ColumnData[], setColumns:React.Dispatch<React.SetStateAction<ColumnData[]>>) => {  
     

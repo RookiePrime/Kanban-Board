@@ -1,9 +1,17 @@
 import { useState } from 'react';
 import { Button, Form, Modal } from "react-bootstrap";
 import { saveNewTask, TaskModalProps } from "../utils";
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { taskAdded } from '../features/board/board-slice';
 
 export const TaskModal = ({ show, handleClose, columns, setColumns }:TaskModalProps) => {
     const [taskText, setTaskText] = useState('');
+    const board = useAppSelector(state => state.board);
+    const dispatch = useAppDispatch();
+
+    const handleAddTask = () => {
+        dispatch(taskAdded(taskText));
+    }
 
     return (
         <Modal show={show} onHide={handleClose}>
@@ -27,7 +35,10 @@ export const TaskModal = ({ show, handleClose, columns, setColumns }:TaskModalPr
 
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Close</Button>
-                    <Button variant="primary" onClick={() => saveNewTask(columns, taskText, handleClose, setColumns, setTaskText)}>Save changes</Button>
+                    <Button variant="primary" onClick={() => {
+                        saveNewTask(columns, taskText, handleClose, setColumns, setTaskText);
+                        handleAddTask();
+                    }}>Save changes</Button>
                 </Modal.Footer>
             </Modal.Dialog>
         </Modal>

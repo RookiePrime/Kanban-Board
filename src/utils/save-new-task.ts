@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { ColumnData, TaskData, setLocalStorage } from "./";
+import { ColumnData, TaskData, setLocalStorage } from ".";
 
 export const saveNewTask = (
     columns:ColumnData[], 
