@@ -8,8 +8,9 @@ export const Column = ({ column, index }: ColumnComponent) => {
 
     return (
         <Col 
-            className='d-flex flex-column align-items-center m-3 py-4 border border-dark-subtle'
+            className='d-flex flex-column align-items-center m-3 py-4 bg-white border border-dark-subtle'
             xs={6} sm={4} md={3} lg={3} xl={2}
+            style={{ minWidth:'170px', minHeight:'600px' }}
             key={index}
         >
             <h2 className='h3 text-center'>{name}</h2>

@@ -10,11 +10,16 @@ export const TaskModal = ({ show, handleClose }:TaskModalProps) => {
 
     const handleAddTask = () => {
         dispatch(taskAdded(taskText));
-        handleClose();
+        handleClosingModal();
     };
+    
+    const handleClosingModal = () => {
+        setTaskText('');
+        handleClose();
+    }
 
     return (
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClosingModal}>
             <Modal.Dialog className={'w-100, m-5'}>
                 <Modal.Body>
                     <Form>
@@ -32,7 +37,7 @@ export const TaskModal = ({ show, handleClose }:TaskModalProps) => {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>Close</Button>
+                    <Button variant="secondary" onClick={handleClosingModal}>Close</Button>
                     <Button variant="primary" onClick={handleAddTask}>Save changes</Button>
                 </Modal.Footer>
             </Modal.Dialog>
