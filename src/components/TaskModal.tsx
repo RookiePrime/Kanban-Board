@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { Button, Form, Modal } from "react-bootstrap";
-import { saveNewTask, TaskModalProps } from "../utils";
-import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { TaskModalProps } from "../utils";
+import { useAppDispatch } from '../app/hooks';
 import { taskAdded } from '../features/board/board-slice';
 
-export const TaskModal = ({ show, handleClose, columns, setColumns }:TaskModalProps) => {
+export const TaskModal = ({ show, handleClose }:TaskModalProps) => {
     const [taskText, setTaskText] = useState('');
-    const board = useAppSelector(state => state.board);
     const dispatch = useAppDispatch();
 
     const handleAddTask = () => {
         dispatch(taskAdded(taskText));
-    }
+        handleClose();
+    };
 
     return (
         <Modal show={show} onHide={handleClose}>
@@ -26,19 +26,14 @@ export const TaskModal = ({ show, handleClose, columns, setColumns }:TaskModalPr
                             placeholder='Enter your task here!'
                             value={taskText}
                             onChange={e => setTaskText(e.target.value)}
-                            onKeyDown={e => {
-                                if (e.key === 'Enter') return saveNewTask(columns, taskText, handleClose, setColumns, setTaskText)
-                            }}     
+                            onKeyDown={e => { if (e.key === 'Enter') handleAddTask() }}     
                         />
                     </Form>
                 </Modal.Body>
 
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>Close</Button>
-                    <Button variant="primary" onClick={() => {
-                        saveNewTask(columns, taskText, handleClose, setColumns, setTaskText);
-                        handleAddTask();
-                    }}>Save changes</Button>
+                    <Button variant="primary" onClick={handleAddTask}>Save changes</Button>
                 </Modal.Footer>
             </Modal.Dialog>
         </Modal>

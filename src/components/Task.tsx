@@ -1,15 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 import { Draggable } from '@hello-pangea/dnd';
 import { Card, Form } from 'react-bootstrap';
-import { saveTaskText, TaskComponent, TaskData } from '../utils';
+import { useAppDispatch } from '../app/hooks';
+import { taskEdited } from '../features/board/board-slice';
+import { TaskComponent, TaskData } from '../utils';
 
-export const Task = ({ task, index, columns, setColumns }:TaskComponent) => {
+export const Task = ({ task, index }:TaskComponent) => {
     const { id, value }:TaskData = task;
 
     const [taskText, setTaskText] = useState<string>(value);
     const [editingText, setEditingText] = useState<boolean>(false);
+    const dispatch = useAppDispatch();
 
     const inputRef = useRef<HTMLTextAreaElement>(null);
+
+    const handleEditTask = () => {
+        dispatch(taskEdited({taskText, id}));
+        setEditingText(false);
+    }
 
     useEffect(() => {
         if (inputRef.current !== null)
@@ -37,11 +45,8 @@ export const Task = ({ task, index, columns, setColumns }:TaskComponent) => {
                                         ref={inputRef}
                                         value={taskText} 
                                         onChange={e => setTaskText(e.target.value)}
-                                        onBlur={() => saveTaskText(columns, id, taskText, setColumns, setEditingText)}
-                                        onKeyDown={e => {
-                                            if (e.key === 'Enter')
-                                                return saveTaskText(columns, id, taskText, setColumns, setEditingText)
-                                        }}
+                                        onBlur={handleEditTask}
+                                        onKeyDown={e => { if (e.key === 'Enter') handleEditTask(); }}
                                     />
                                 </Form>
                             :   <Card.Body onClick={() => setEditingText(true)}>

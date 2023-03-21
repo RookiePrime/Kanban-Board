@@ -3,7 +3,7 @@ import { Col } from 'react-bootstrap';
 import { ColumnComponent } from '../utils';
 import { Task } from './';
 
-export const Column = ({ column, index, columns, setColumns }: ColumnComponent) => {
+export const Column = ({ column, index }: ColumnComponent) => {
     const { name, id, tasks } = column;
 
     return (
@@ -26,7 +26,7 @@ export const Column = ({ column, index, columns, setColumns }: ColumnComponent) 
                                 `}
                             >
                                 {tasks.map((task, index) => 
-                                    <Task key={task.id} draggableId={task.id} index={index} task={task} columns={columns} setColumns={setColumns}></Task>
+                                    <Task key={task.id} draggableId={task.id} index={index} task={task}></Task>
                                 )}
                                 {provided.placeholder}
                             </div>

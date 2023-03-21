@@ -7,8 +7,6 @@ interface TaskComponent {
     task: TaskData,
     index: number,
     draggableId: string,
-    columns: ColumnData[],
-    setColumns: React.Dispatch<React.SetStateAction<ColumnData[]>>,
 }
   
 interface ColumnData {
@@ -20,8 +18,6 @@ interface ColumnData {
 interface ColumnComponent {
     column: ColumnData,
     index: number,
-    columns: ColumnData[],
-    setColumns: React.Dispatch<React.SetStateAction<ColumnData[]>>
 }
   
 interface BoardData {
@@ -31,8 +27,6 @@ interface BoardData {
 interface TaskModalProps {
     show: boolean,
     handleClose: () => void,
-    columns: ColumnData[],
-    setColumns: React.Dispatch<React.SetStateAction<ColumnData[]>>
 }
 
 export type {

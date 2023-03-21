@@ -1,37 +1,40 @@
 import { useState } from 'react';
 import { Container, Button, Row } from 'react-bootstrap';
-import { DragDropContext } from '@hello-pangea/dnd';
-import { onDragEnd } from '../utils';
+import { DragDropContext, DropResult } from '@hello-pangea/dnd';
 import { Column } from "./";
-import { BoardData, ColumnData } from "../utils";
 import { TaskModal } from './TaskModal';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { taskMoved } from '../features/board/board-slice';
 
-export const Board = (boardData:BoardData) => {
-    const [ columns, setColumns ] = useState<ColumnData[]>(boardData.columns);
+export const Board = () => {
     const [ show, setShow ] = useState<boolean>(false);
+    const dispatch = useAppDispatch();
+    const board = useAppSelector(state => state.board);
 
     const handleClose:() => void = () => setShow(false);
     const handleShow:() => void = () => setShow(true);
 
+    const handleDragEnd = (result: DropResult) => {
+        dispatch(taskMoved(result));
+    }
+
     return (
         <Container className='d-flex flex-column align-items-center justify-content-between'>
             <Row className='d-flex'>
-                <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)}>
+                <DragDropContext onDragEnd={result => handleDragEnd(result)}>
                     <Container>
                         <Row className='d-flex justify-content-center'>
-                            {columns.map((column, index) =>
+                            {board.columns.map((column, index) =>
                                 <Column 
                                     key={index} 
                                     column={column} 
-                                    columns={columns} 
                                     index={index}
-                                    setColumns={setColumns}
                                 ></Column>
                             )}
                         </Row>
                     </Container>
                 </DragDropContext>
-                <TaskModal show={show} handleClose={handleClose} columns={columns} setColumns={setColumns}></TaskModal>
+                <TaskModal show={show} handleClose={handleClose}></TaskModal>
             </Row>
             <Row className='d-flex justify-content-center w-100'>
                 <Button onClick={handleShow}>Create New Task</Button>
