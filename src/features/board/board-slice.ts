@@ -48,19 +48,15 @@ const boardSlice = createSlice({
         taskMoved(state, action: PayloadAction<DropResult>) {
             const { columns } = state;
             const { source, destination, draggableId } = action.payload;
-            
-            if (!destination ||
-                (destination.droppableId === source.droppableId && destination.index === source.index)
-                ) return;
+
+            if (!destination) return;
         
             const [sourceColumn] = columns.filter(column => column.id === source.droppableId);
             const [movingTask] = sourceColumn.tasks.filter(task => task.id === draggableId);
             const newSourceTasks:TaskData[] = sourceColumn.tasks.filter(task => task.id !== draggableId);
             sourceColumn.tasks = newSourceTasks;
         
-            const [destinationColumn] = source.droppableId === destination.droppableId 
-            ? [sourceColumn]
-            : columns.filter(column => column.id === destination.droppableId);
+            const [destinationColumn] = columns.filter(column => column.id === destination.droppableId);
         
             const newDestinationTasks:TaskData[] = [...destinationColumn.tasks];
             newDestinationTasks.splice(destination.index, 0, movingTask);
@@ -86,7 +82,7 @@ const boardSlice = createSlice({
 
             const [currentColumn] = 
                 columns.filter((column:ColumnData) => 
-                    column.tasks.filter(task => task.id === id).length != 0);
+                    column.tasks.filter((task:TaskData) => task.id === id).length != 0);
         
             const newTask:TaskData = {
                 id,
@@ -108,13 +104,33 @@ const boardSlice = createSlice({
 
             state.columns = newColumns;
             setLocalStorage(state.columns);
-        }
+        },
+        taskDeleted(state, action: PayloadAction<DropResult>) {
+            const { columns } = state;
+            const { source, draggableId } = action.payload;
+
+            const newColumns:ColumnData[] = columns.map((column:ColumnData) => {
+                if (column.id === source.droppableId) {
+                    const newColumn: ColumnData = {
+                        id: column.id,
+                        name: column.name,
+                        tasks: column.tasks.filter((task:TaskData) => task.id !== draggableId)
+                    }
+                    return newColumn;
+                }
+                return column;
+            });
+
+            state.columns = newColumns;
+            setLocalStorage(state.columns);
+        },
     }
 });
 
 export const {
     taskAdded,
     taskMoved,
-    taskEdited
+    taskEdited,
+    taskDeleted,
 } = boardSlice.actions;
 export default boardSlice.reducer;

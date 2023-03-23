@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Container, Button, Row } from 'react-bootstrap';
+import { Container, Button, Row, Col } from 'react-bootstrap';
 import { DragDropContext, DropResult } from '@hello-pangea/dnd';
-import { Column } from "./";
+import { Column, Trashbin } from "./";
 import { TaskModal } from './TaskModal';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { taskMoved } from '../features/board/board-slice';
+import { taskDeleted, taskMoved } from '../features/board/board-slice';
 
 export const Board = () => {
     const [ show, setShow ] = useState<boolean>(false);
@@ -15,15 +15,25 @@ export const Board = () => {
     const handleShow:() => void = () => setShow(true);
 
     const handleDragEnd = (result: DropResult) => {
+        const { destination, source } = result;
+        if (!destination ||
+            (destination.droppableId === source.droppableId && destination.index === source.index)
+            ) return;
+
+        if (destination.droppableId === 'Trashbin') {
+            dispatch(taskDeleted(result));
+            return;
+        }
+
         dispatch(taskMoved(result));
     }
 
     return (
         <Container className='d-flex flex-column align-items-center justify-content-between'>
-            <Row className='d-flex'>
+            <Row className='d-flex w-100 flex-grow-1'>
                 <DragDropContext onDragEnd={result => handleDragEnd(result)}>
-                    <Container>
-                        <Row className='d-flex justify-content-center'>
+                    <Container className='d-flex flex-column justify-content-between'>
+                        <Row className='d-flex justify-content-center flex-grow-1'>
                             {board.columns.map((column, index) =>
                                 <Column 
                                     key={index} 
@@ -31,6 +41,11 @@ export const Board = () => {
                                     index={index}
                                 ></Column>
                             )}
+                        </Row>
+                        <Row className='align-self-center w-100'>
+                            <Col>
+                                <Trashbin></Trashbin>
+                            </Col>
                         </Row>
                     </Container>
                 </DragDropContext>
