@@ -6,15 +6,21 @@ import { TaskModal } from './TaskModal';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { taskDeleted, taskMoved } from '../features/board/board-slice';
 
+
 export const Board = () => {
     const [ show, setShow ] = useState<boolean>(false);
+    const [ dragging, setDragging ] = useState<boolean>(false);
     const dispatch = useAppDispatch();
     const board = useAppSelector(state => state.board);
 
     const handleClose:() => void = () => setShow(false);
     const handleShow:() => void = () => setShow(true);
 
+    const handleDragStart = () => setDragging(true);
+
     const handleDragEnd = (result: DropResult) => {
+        setDragging(false);
+
         const { destination, source } = result;
         if (!destination ||
             (destination.droppableId === source.droppableId && destination.index === source.index)
@@ -31,7 +37,10 @@ export const Board = () => {
     return (
         <Container className='d-flex flex-column align-items-center justify-content-between'>
             <Row className='d-flex w-100 flex-grow-1'>
-                <DragDropContext onDragEnd={result => handleDragEnd(result)}>
+                <DragDropContext 
+                    onDragStart={handleDragStart}
+                    onDragEnd={result => handleDragEnd(result)} 
+                >
                     <Container className='d-flex flex-column justify-content-between'>
                         <Row className='d-flex justify-content-center flex-grow-1'>
                             {board.columns.map((column, index) =>
@@ -44,7 +53,7 @@ export const Board = () => {
                         </Row>
                         <Row className='align-self-center w-100'>
                             <Col>
-                                <Trashbin></Trashbin>
+                                <Trashbin dragging={dragging}></Trashbin>
                             </Col>
                         </Row>
                     </Container>

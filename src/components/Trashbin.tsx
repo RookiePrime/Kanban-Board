@@ -1,31 +1,32 @@
 import { Droppable } from "@hello-pangea/dnd";
 
-export const Trashbin = () => {
+type TrashbinProps = { dragging: boolean }
 
+export const Trashbin = ({ dragging }: TrashbinProps) => {
     return (
         <div 
-            className='
-                bg-danger 
-                d-flex 
-                justify-content-center 
-                align-items-center 
-                p-4
-                border
-                rounded
-        '>
-            <Droppable droppableId='Trashbin'>
-                {(provided, snapshot) =>
-                    <div
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                    className='w-100 d-flex justify-content-center align-items-center'
-                    style={{height: snapshot.isDraggingOver ? '100%' : '0%'}}
-                    >
-                        <p className='m-0'>Drop your task here to delete it!</p>
-                        {provided.placeholder}
-                    </div>
-                }
-            </Droppable>
+            className='bg-danger border rounded'
+            style={{
+                height: dragging ? '10rem' : '0',
+                transition: 'all 0.3s ease-out 0.3s'
+            }}
+        >
+            <div className='h-100 w-100'>
+                <Droppable droppableId='Trashbin'>
+                    {(provided, snapshot) =>
+                        <div
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                        className='w-100 h-100 d-flex justify-content-center align-items-center border rounded'
+                        style={{
+                            background: snapshot.isDraggingOver ? 'blue' : 'red'
+                        }}
+                        >
+                            {provided.placeholder}
+                        </div>
+                    }
+                </Droppable>
+            </div>
         </div>
     )
 }
