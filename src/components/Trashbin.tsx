@@ -4,22 +4,17 @@ type TrashbinProps = { dragging: boolean }
 
 export const Trashbin = ({ dragging }: TrashbinProps) => {
     return (
-        <div 
-            className='bg-danger border rounded'
-            style={{
-                height: dragging ? '10rem' : '0',
-                transition: 'all 0.3s ease-out 0.3s'
-            }}
-        >
             <div className='h-100 w-100'>
                 <Droppable droppableId='Trashbin'>
                     {(provided, snapshot) =>
                         <div
                         {...provided.droppableProps}
                         ref={provided.innerRef}
-                        className='w-100 h-100 d-flex justify-content-center align-items-center border rounded'
+                        className={`w-100 rounded ${dragging ? 'opacity-100' : 'opacity-0'}`}
                         style={{
-                            background: snapshot.isDraggingOver ? 'blue' : 'red'
+                            background: snapshot.isDraggingOver ? 'aquamarine' : 'mediumaquamarine',
+                            minHeight: '4rem',
+                            transition: 'all 0.2s ease-in-out',
                         }}
                         >
                             {provided.placeholder}
@@ -27,6 +22,5 @@ export const Trashbin = ({ dragging }: TrashbinProps) => {
                     }
                 </Droppable>
             </div>
-        </div>
     )
 }

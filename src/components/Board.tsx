@@ -36,7 +36,7 @@ export const Board = () => {
 
     return (
         <Container className='d-flex flex-column align-items-center justify-content-between'>
-            <Row className='d-flex w-100 flex-grow-1'>
+            <Row className='d-flex w-100 flex-grow-1 mb-3'>
                 <DragDropContext 
                     onDragStart={handleDragStart}
                     onDragEnd={result => handleDragEnd(result)} 
